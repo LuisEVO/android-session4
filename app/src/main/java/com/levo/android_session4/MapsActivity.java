@@ -41,9 +41,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
-
+        CustomInfoWindowAdapter customInfoWindowAdapter = new CustomInfoWindowAdapter(this);
+        mMap.setInfoWindowAdapter(customInfoWindowAdapter);
         // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cibertecMiraflores, 20));
         // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cibertecSanIsidro, 15));
 
@@ -54,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
+
                 LatLng cibertecMiraflores = new LatLng(-12.1222648,-77.0304797);
                 LatLng cibertecSanIsidro = new LatLng(-12.1041327,-77.0472384);
                 mMap.addMarker(new MarkerOptions()
