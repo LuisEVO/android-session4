@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,6 +13,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -61,12 +63,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions()
                         .position(cibertecMiraflores)
                         .title("Cibertec")
-                        .snippet("Sede Miraflores"));
+                        .snippet("Sede Miraflores")
+                        .draggable(true)
+                );
 
                 mMap.addMarker(new MarkerOptions()
                         .position(cibertecSanIsidro)
                         .title("Cibertec")
                         .snippet("Sede San Isidro")
+                        .draggable(true)
                         //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.i_marker)));
 
@@ -81,6 +86,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .add(cibertecMiraflores, cibertecSanIsidro)
                         .width(5)
                         .color(Color.GREEN));
+
+
+                mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                    @Override
+                    public void onMarkerDragStart(Marker marker) {
+
+                    }
+
+                    @Override
+                    public void onMarkerDrag(Marker marker) {
+
+                    }
+
+                    @Override
+                    public void onMarkerDragEnd(Marker marker) {
+                        Toast.makeText(MapsActivity.this, "Lat: " + marker.getPosition().latitude + "Long: " + marker.getPosition().longitude, Toast.LENGTH_LONG).show();
+
+                    }
+                });
             }
         });
     }
